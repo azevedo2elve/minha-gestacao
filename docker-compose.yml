@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  minha-gestacao-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: minha_gestacao_app
+    ports:
+      - "8081:8081"     # Expo Web / Metro Bundler
+      - "19000:19000"   # Expo DevTools
+      - "19001:19001"
+      - "19002:19002"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - EXPO_USE_METRO_WORKSPACE_ROOT=1
+      # Substituir pelo IP local da máquina host na rede Wi-Fi para teste no celular/tablet
+      - REACT_NATIVE_PACKAGER_HOSTNAME=${HOST_IP:-127.0.0.1}
+      - EXPO_PUBLIC_SUPABASE_URL=${EXPO_PUBLIC_SUPABASE_URL}
+      - EXPO_PUBLIC_SUPABASE_ANON_KEY=${EXPO_PUBLIC_SUPABASE_ANON_KEY}
+    stdin_open: true
+    tty: true
