@@ -14,6 +14,7 @@ Abaixo você encontra os manuais práticos e referências de arquitetura do sist
 | 💻 [**Ambiente Local & Docker**](file:///home/azevedo/code/minha-gestacao/docs/local-development.md) | Passo a passo para rodar o app no computador (Web), via Docker Compose ou na rede Wi-Fi local para tablets e celulares. |
 | 📱 [**Guia de Build para Android**](file:///home/azevedo/code/minha-gestacao/docs/android-build-guide.md) | Como executar no Emulador Android, no dispositivo físico via USB/Expo Go e como gerar builds com EAS (`.apk` e `.aab`). |
 | 🩺 [**Motor de Cálculo Obstétrico**](file:///home/azevedo/code/minha-gestacao/docs/obstetric-engine.md) | Especificação das regras clínicas obstétricas (DUM vs Ultrassom, DPP, cálculo em UTC, trimestres e Red Flags). |
+| 📸 [**Evidências E2E Playwright**](file:///home/azevedo/code/minha-gestacao/docs/screenshots/README.md) | Capturas de tela e evidências visuais de ponta a ponta organizadas por pasta de feature (`feature-01/`, `feature-02/`, etc.). |
 | 📋 [**Especificação Canônica (SPEC.md)**](file:///home/azevedo/code/minha-gestacao/SPEC.md) | Documento mestre de especificação técnica e funcional com o roadmap completo de features. |
 | 🤖 [**Contexto para Agentes de IA (AGENT.md)**](file:///home/azevedo/code/minha-gestacao/AGENT.md) | Diretrizes e convenções para copilotos e agentes autônomos de IA que atuam no repositório. |
 
