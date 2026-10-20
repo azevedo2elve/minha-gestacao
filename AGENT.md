@@ -115,7 +115,13 @@ minha-gestacao/
   - Migrations SQL completas com RLS + Seed das 42 semanas.
   - `src/lib/obstetrics.ts` testado (13/13 testes aprovados).
   - Layouts vazios responsivos implementados.
-- [ ] **FEATURE 01: Authentication, RBAC & First-Access Flow**
+- [x] **FEATURE 01: Authentication, RBAC & First-Access Flow**
+  - Cliente Supabase com storage universal (`safeStorage`) e `useAuthStore` (Zustand).
+  - Tela `(auth)/login.tsx` com formulário acolhedor, aviso RN02 e botões de validação rápida.
+  - Tela `(auth)/change-password.tsx` com validação de senha e persistência no perfil.
+  - Route Guard (`src/lib/auth-guard.ts` e `src/app/_layout.tsx`) com proteção e bloqueio estrito de rotas cruzadas.
+  - Componentes reutilizáveis em `src/components/ui/` (`Button`, `Input`, `Card`).
+  - 40 testes unitários cobrindo cálculos obstétricos, store de autenticação e proteção RBAC.
 - [ ] **FEATURE 02: Doula Anamnesis Wizard & Client Provisioning**
 - [ ] **FEATURE 03: Dashboards (Visão da Doula & Home da Gestante)**
 - [ ] **FEATURE 04: Diário da Gestante & Motor de Alertas**

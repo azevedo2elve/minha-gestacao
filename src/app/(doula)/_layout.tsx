@@ -2,19 +2,26 @@ import React from 'react';
 import { View, Text, Pressable, useWindowDimensions } from 'react-native';
 import { Slot, useRouter, usePathname } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LayoutDashboard, UserPlus, Inbox, ArrowLeft, HeartHandshake } from 'lucide-react-native';
+import { LayoutDashboard, UserPlus, Inbox, LogOut, HeartHandshake } from 'lucide-react-native';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function DoulaLayout() {
   const router = useRouter();
   const pathname = usePathname();
   const { width } = useWindowDimensions();
   const isTabletOrDesktop = width >= 768;
+  const { profile, logout } = useAuthStore();
 
   const navItems = [
     { label: 'Painel Gestantes', path: '/(doula)/dashboard', icon: LayoutDashboard },
     { label: 'Nova Anamnese', path: '/(doula)/new-anamnesis', icon: UserPlus },
     { label: 'Mensagens', path: '/(doula)/inbox', icon: Inbox },
   ];
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace('/(auth)/login');
+  };
 
   if (isTabletOrDesktop) {
     // Split View / Sidebar for Tablet & Desktop Web
@@ -38,10 +45,16 @@ export default function DoulaLayout() {
             <View className="bg-sage-50 dark:bg-dark-surface p-3 rounded-xl border border-sage-200 dark:border-dark-border mb-6">
               <View className="flex-row items-center gap-2 mb-1">
                 <View className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                <Text className="text-xs font-bold text-sage-800 dark:text-cream">Helena Ramos</Text>
+                <Text className="text-xs font-bold text-sage-800 dark:text-cream">
+                  {profile?.full_name || 'Helena Ramos'}
+                </Text>
               </View>
               <Text className="text-[11px] text-sage-700 dark:text-sage-300 font-medium">
-                Status: Disponível Online
+                {profile?.doula_status === 'IN_LABOR_SUPPORT'
+                  ? 'Status: Acompanhando Parto'
+                  : profile?.doula_status === 'RESTING'
+                  ? 'Status: Em Horário de Descanso'
+                  : 'Status: Disponível Online'}
               </Text>
             </View>
 
@@ -74,14 +87,14 @@ export default function DoulaLayout() {
             </View>
           </View>
 
-          {/* Bottom Back Button */}
+          {/* Bottom Logout Button */}
           <Pressable
-            onPress={() => router.replace('/')}
-            className="flex-row items-center gap-2 p-3 rounded-xl border border-cream-300 dark:border-dark-border"
+            onPress={handleLogout}
+            className="flex-row items-center gap-2 p-3 rounded-xl border border-cream-300 dark:border-dark-border active:bg-rose-50 dark:active:bg-rose-950/20"
           >
-            <ArrowLeft size={16} color="#7D331B" />
+            <LogOut size={16} color="#7D331B" />
             <Text className="text-xs font-semibold text-terracotta-800 dark:text-terracotta-200">
-              Menu Inicial
+              Sair da Conta
             </Text>
           </Pressable>
         </View>
@@ -123,9 +136,9 @@ export default function DoulaLayout() {
             </Pressable>
           );
         })}
-        <Pressable onPress={() => router.replace('/')} className="items-center py-1">
-          <ArrowLeft size={20} color="#A8A29E" />
-          <Text className="text-[10px] mt-1 text-gray-400 font-semibold">Sair</Text>
+        <Pressable onPress={handleLogout} className="items-center py-1">
+          <LogOut size={20} color="#7D331B" />
+          <Text className="text-[10px] mt-1 text-terracotta-700 font-semibold">Sair</Text>
         </Pressable>
       </View>
     </SafeAreaView>

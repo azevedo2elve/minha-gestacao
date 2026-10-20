@@ -2,12 +2,21 @@ import React from 'react';
 import { View, Text, ScrollView, Pressable, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, Sparkles, Calendar, BookOpen, HeartHandshake } from 'lucide-react-native';
+import { LogOut, Calendar, BookOpen, HeartHandshake } from 'lucide-react-native';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function PregnantHomeScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
+  const { profile, logout } = useAuthStore();
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace('/(auth)/login');
+  };
+
+  const firstName = profile?.full_name?.split(' ')[0] || 'Maria';
 
   return (
     <SafeAreaView className="flex-1 bg-cream dark:bg-dark-bg">
@@ -15,11 +24,11 @@ export default function PregnantHomeScreen() {
         {/* Top Header */}
         <View className="flex-row items-center justify-between mb-6">
           <Pressable
-            onPress={() => router.replace('/')}
-            className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-full bg-cream-300 dark:bg-dark-card"
+            onPress={handleLogout}
+            className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-full bg-cream-300 dark:bg-dark-card active:bg-rose-100"
           >
-            <ArrowLeft size={16} color="#6B8E78" />
-            <Text className="text-xs font-semibold text-sage-700 dark:text-sage-300">Voltar ao Início</Text>
+            <LogOut size={14} color="#C25D3B" />
+            <Text className="text-xs font-semibold text-terracotta-700 dark:text-terracotta-300">Sair</Text>
           </Pressable>
 
           <View className="px-3 py-1 bg-rose-100 dark:bg-rose-900/30 rounded-full border border-rose-300">
@@ -29,7 +38,9 @@ export default function PregnantHomeScreen() {
 
         {/* Greeting */}
         <View className="mb-6">
-          <Text className="text-sm font-medium text-sage-600 dark:text-sage-400">Olá, Maria & Bebê Leo ✨</Text>
+          <Text className="text-sm font-medium text-sage-600 dark:text-sage-400">
+            Olá, {firstName} & Bebê ✨
+          </Text>
           <Text className="text-2xl font-bold text-gray-800 dark:text-cream mt-0.5">
             24 semanas e 3 dias de amor
           </Text>
