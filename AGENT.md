@@ -35,7 +35,7 @@ O produto adota estritamente a metodologia **Spec-Driven Development (SDD)**, co
 - **Backend:** **Supabase** (PostgreSQL 15+, Supabase Auth, Row Level Security em todas as tabelas, Realtime e Storage).
 - **Estado:** **TanStack Query (React Query v5)** para chamadas e cache assíncrono + **Zustand** para sessão e estado de UI.
 - **Formulários:** **React Hook Form** + **Zod**.
-- **Testes:** **Jest** + **ts-jest**.
+- **Testes:** **Jest** + **ts-jest** (unitários) e **Playwright** (testes ponta a ponta / E2E no navegador).
 
 ---
 
@@ -148,6 +148,9 @@ npx expo start --lan
 
 # Testar export estático do Expo Router
 npx expo export --platform web
+
+# Validação E2E no navegador com Playwright
+# Navegar para http://localhost:8081, validar os fluxos e salvar evidências em docs/screenshots/feature-XX/
 ```
 
 ---
@@ -158,3 +161,8 @@ npx expo export --platform web
 2. **Nunca use cálculos de data locais** para idade gestacional — use sempre as funções UTC de `src/lib/obstetrics.ts`.
 3. **Mantenha a responsividade:** telas da Doula devem ser otimizadas para larguras grandes (`md:` >= 768px para tablet/desktop) e telas da Gestante devem priorizar o uso com uma só mão em telas móveis.
 4. **Preserve a humanização:** textos, mensagens de erro e dicas devem sempre manter um tom acolhedor, empático e cientificamente embasado.
+5. **Obrigatório: Testes E2E com Playwright após cada Feature:**
+   - Após implementar e testar unitariamente qualquer feature, execute a validação no navegador via **Playwright** (`http://localhost:8081`).
+   - Valide interações reais de usuário: preenchimento de formulários, cliques, redirecionamentos, bloqueios de segurança/RBAC e visualização responsiva.
+   - Salve evidências visuais (screenshots) no diretório `docs/screenshots/feature-XX/`.
+   - Inclua no relatório final da feature um resumo detalhado dos passos e cenários testados no Playwright.
