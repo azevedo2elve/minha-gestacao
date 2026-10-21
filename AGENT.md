@@ -136,7 +136,16 @@ minha-gestacao/
   - Catálogo completo das semanas 1 a 42 em `src/lib/gestational-metadata.ts` espelhado do banco.
   - 74 testes unitários automatizados cobrindo o serviço de dashboards, motor de metadados, alternância de status da doula, dispensa de red flags e checklist interativo.
   - 9 capturas de validação E2E via Playwright no navegador (`http://localhost:8081`) cobrindo o Painel da Doula (Desktop, Tablet, Mobile, filtros e dispensa de alertas) e a Home da Gestante (Mobile, Tablet, expansão do desenvolvimento e marcação de tarefas).
-- [ ] **FEATURE 04: Diário da Gestante & Motor de Alertas**
+- [x] **FEATURE 04: Diário da Gestante & Motor de Alertas**
+  - Tela `(pregnant)/diary.tsx` com `DateSelector` responsivo para registrar e consultar dias anteriores com cálculo dinâmico da IG na data.
+  - Seleção por chips interativos de Emoções (`MultiSelectChips`), Sintomas Físicos comuns (com exclusão mútua de "Sem queixas") e Alertas Obstétricos Críticos (RN04: Sangramento vaginal, Perda de líquido e Cefaleia com visão turva).
+  - Seletores visuais de Movimentação Fetal (com alerta na tela para `>= 28 semanas`), Qualidade do Sono (1-5 com fases da lua) e Hidratação (1-5 com gotas e metas de volume).
+  - Acordeão retrátil para métricas opcionais de peso materno (`mother_weight_kg`), peso estimado do bebê (`baby_estimated_weight_g`), pressão arterial (`blood_pressure`) e anotações nutricionais (RN03).
+  - Lógica de UPSERT garantindo no máximo 1 registro por dia sem duplicatas (`UNIQUE(pregnancy_id, log_date)`), sincronizando instantaneamente com a Home da Gestante e Painel da Doula.
+  - Modal acolhedor de Alerta Obstétrico (`RedFlagAlertModal`) disparado automaticamente ao registrar sinais críticos, com botão direto para WhatsApp da Doula e discagem rápida de emergência (SAMU 192).
+  - Prontuário 360º da Gestante (`/(doula)/client/[id]/index.tsx`) com banner de atenção prioritária, ficha obstétrica completa e histórico cronológico de diários com cards interativos (`DailyLogCard`), filtros por alertas e ação de "Dar Ciência" (`seen_by_doula_at`).
+  - 87 testes unitários automatizados cobrindo o serviço de diário, UPSERT, campos opcionais nulos, detecção de red flags por critérios da RN04 e marcação de ciência.
+  - 10 capturas de validação E2E via Playwright cobrindo todos os fluxos do Diário, navegação entre datas, acordeão, disparo do modal de alerta, responsividade tablet e prontuário da Doula.
 - [ ] **FEATURE 05: Timeline (Barra de Nível 40 Semanas) & Gráficos de Peso**
 - [ ] **FEATURE 06: Calendário, Prescrições de Exercícios & Videochamada**
 - [ ] **FEATURE 07: Bate-Papo Humanizado em Tempo Real (Texto, Áudio e Fotos)**

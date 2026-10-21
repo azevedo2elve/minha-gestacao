@@ -351,6 +351,38 @@ export async function fetchDoulaDashboardData(doulaId?: string): Promise<DoulaDa
 
   // Filter out red flags that were acknowledged
   const filteredRedFlags = mockRedFlags.filter((rf) => !acknowledgedFlags.includes(rf.logId));
+
+  // Check local storage for any dynamic red flags added to mock clients
+  for (const client of mockClients) {
+    try {
+      const rawClientLogs = await safeStorage.getItem(`@minha_gestacao:daily_logs:${client.pregnancyId}`);
+      if (rawClientLogs) {
+        const parsedLogs: DailyLog[] = JSON.parse(rawClientLogs);
+        for (const l of parsedLogs) {
+          if (l.has_red_flag && !l.seen_by_doula_at && !acknowledgedFlags.includes(l.id)) {
+            if (!filteredRedFlags.some((rf) => rf.logId === l.id)) {
+              filteredRedFlags.push({
+                logId: l.id,
+                pregnancyId: client.pregnancyId,
+                pregnantUserId: client.pregnantUserId,
+                pregnantName: client.pregnantName,
+                babyNickname: client.babyNickname,
+                logDate: l.log_date,
+                gestationalWeek: l.gestational_week_at_log,
+                gestationalDays: l.gestational_days_at_log,
+                symptoms: l.symptom_tags,
+                fetalMovement: l.fetal_movement,
+                reason: 'Alerta obstétrico prioritário registrado no diário',
+                createdAt: l.created_at,
+              });
+            }
+          }
+        }
+      }
+    } catch {
+      // Ignore storage errors
+    }
+  }
   const clientData = mockClients.map((client) => ({
     ...client,
     hasRedFlag: filteredRedFlags.some((rf) => rf.pregnancyId === client.pregnancyId),
@@ -691,6 +723,22 @@ export async function fetchPregnantHomeData(pregnantProfile: Profile): Promise<P
   // Sync saved doula status if available
   if (savedDoulaStatus && fallback.doula) {
     fallback.doula.doula_status = savedDoulaStatus;
+  }
+
+  // Sync today's daily log from local storage if available
+  try {
+    const pregnancyKey = `@minha_gestacao:daily_logs:${fallback.pregnancy?.id || 'mock-pregnancy-active'}`;
+    const rawLogs = await safeStorage.getItem(pregnancyKey);
+    if (rawLogs) {
+      const logsList: DailyLog[] = JSON.parse(rawLogs);
+      const foundToday = logsList.find((l) => l.log_date === todayStr);
+      if (foundToday) {
+        fallback.todayLog = foundToday;
+        fallback.isTodayLogCompleted = true;
+      }
+    }
+  } catch {
+    // Ignore storage parse errors
   }
 
   // Sync completed tasks
