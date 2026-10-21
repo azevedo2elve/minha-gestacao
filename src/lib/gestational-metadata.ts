@@ -541,3 +541,4 @@ export const ILLUSTRATION_EMOJIS: Record<string, string> = {
 export function getBabySizeIllustration(key: string): string {
   return ILLUSTRATION_EMOJIS[key] || '👶';
 }
+
