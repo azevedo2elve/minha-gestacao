@@ -161,7 +161,7 @@ npx expo export --platform web
 2. **Nunca use cálculos de data locais** para idade gestacional — use sempre as funções UTC de `src/lib/obstetrics.ts`.
 3. **Mantenha a responsividade:** telas da Doula devem ser otimizadas para larguras grandes (`md:` >= 768px para tablet/desktop) e telas da Gestante devem priorizar o uso com uma só mão em telas móveis.
 4. **Preserve a humanização:** textos, mensagens de erro e dicas devem sempre manter um tom acolhedor, empático e cientificamente embasado.
-5. **Testes E2E com Playwright & Ciclo de Vida dos Prints:**
-   - Ao concluir uma feature em sua branch correspondente, execute a validação no navegador via **Playwright** (`http://localhost:8081`) para assegurar funcionamento de ponta a ponta (interações, formulários, RBAC, layout).
-   - **Prints e testes são temporários:** Não é necessário separar pastas permanentes por feature. Os prints servem apenas para validação imediata da feature na branch.
-   - **Limpeza pós-merge:** Após a aprovação e o **merge da branch da feature para a `main`**, todos os prints e artefatos de teste gerados pelo Playwright devem ser apagados, mantendo a `main` sempre limpa e sem acúmulo de imagens.
+5. **Testes E2E com Playwright & Ciclo de Vida dos Testes:**
+   - **Na branch da feature:** Ao concluir a implementação, execute a validação no navegador via **Playwright** (`http://localhost:8081`) para validar os fluxos, formulários, RBAC e responsividade, gerando os prints para comprovação visual.
+   - **Limpeza no merge para a `main`:** Os prints e artefatos gerados pelo Playwright são estritamente temporários. Assim que o merge da feature for realizado para a `main`, todos os prints/arquivos de teste gerados são excluídos para manter a branch `main` limpa.
+   - **Próxima feature pronta para novos testes:** Ao iniciar a feature seguinte em uma nova branch, o ambiente estará limpo para realizar seus próprios testes e capturar novos prints assim que ela for concluída.
