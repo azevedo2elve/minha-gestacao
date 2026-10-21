@@ -122,7 +122,13 @@ minha-gestacao/
   - Route Guard (`src/lib/auth-guard.ts` e `src/app/_layout.tsx`) com proteção e bloqueio estrito de rotas cruzadas.
   - Componentes reutilizáveis em `src/components/ui/` (`Button`, `Input`, `Card`).
   - 40 testes unitários cobrindo cálculos obstétricos, store de autenticação e proteção RBAC.
-- [ ] **FEATURE 02: Doula Anamnesis Wizard & Client Provisioning**
+- [x] **FEATURE 02: Doula Anamnesis Wizard & Client Provisioning**
+  - Edge Function `create-pregnant-client` (`supabase/functions/create-pregnant-client/index.ts`) para provisionamento no Auth sem derrubar a sessão da Doula.
+  - Tela `(doula)/new-anamnesis.tsx` com Stepper responsivo de 5 passos (Identificação, Cálculo IG/DPP com preview em tempo real, Histórico Obstétrico G/P/A com verificação de consistência e IMC, Plano de Parto & Notas Confidenciais, e Dados do Bebê com resumo final).
+  - Componentes modulares: `Stepper`, `ObstetricPreviewCard`, `WhatsAppModal`, `SelectChips`, `NumberStepper`.
+  - Disparo de convite acolhedor via WhatsApp com deep link formatado e senha temporária (`must_change_password: true`).
+  - 64 testes unitários automatizados cobrindo esquemas Zod, cálculo obstétrico dinâmico, biometria e provisionamento.
+  - 11 capturas de validação E2E via Playwright cobrindo todos os passos, erros de validação, alternância DUM/Ultrassom, modal do WhatsApp e responsividade.
 - [ ] **FEATURE 03: Dashboards (Visão da Doula & Home da Gestante)**
 - [ ] **FEATURE 04: Diário da Gestante & Motor de Alertas**
 - [ ] **FEATURE 05: Timeline (Barra de Nível 40 Semanas) & Gráficos de Peso**
