@@ -76,7 +76,6 @@ minha-gestacao/
 ├── SPEC.md                        # Especificação canônica completa
 ├── docs/                          # Documentação detalhada do projeto
 │   ├── README.md                  # Índice da documentação
-│   ├── screenshots/               # Evidências E2E organizadas por feature (feature-01/, feature-02/, etc.)
 │   ├── supabase-guide.md          # Setup do Supabase, migrations, seed, RLS
 │   ├── local-development.md       # Execução local, Web, LAN, Docker
 │   ├── android-build-guide.md     # Build e execução Android (EAS / local)
@@ -150,8 +149,8 @@ npx expo start --lan
 # Testar export estático do Expo Router
 npx expo export --platform web
 
-# Validação E2E no navegador com Playwright
-# Navegar para http://localhost:8081, validar os fluxos e salvar evidências em docs/screenshots/feature-XX/
+# Validação E2E no navegador com Playwright (na branch da feature)
+# Navegar para http://localhost:8081 e validar os fluxos da tela
 ```
 
 ---
@@ -162,10 +161,7 @@ npx expo export --platform web
 2. **Nunca use cálculos de data locais** para idade gestacional — use sempre as funções UTC de `src/lib/obstetrics.ts`.
 3. **Mantenha a responsividade:** telas da Doula devem ser otimizadas para larguras grandes (`md:` >= 768px para tablet/desktop) e telas da Gestante devem priorizar o uso com uma só mão em telas móveis.
 4. **Preserve a humanização:** textos, mensagens de erro e dicas devem sempre manter um tom acolhedor, empático e cientificamente embasado.
-5. **Obrigatório: Testes E2E com Playwright e Separação de Prints por Pasta da Feature:**
-   - Após implementar e testar unitariamente qualquer feature, execute a validação no navegador via **Playwright** (`http://localhost:8081`).
-   - Valide interações reais de usuário: preenchimento de formulários, cliques, redirecionamentos, bloqueios de segurança/RBAC e visualização responsiva.
-   - **Separação Obrigatória por Pasta de Feature:** Todos os prints/screenshots do Playwright DEVEM ser salvos exclusivamente na subpasta correspondente à feature:
-     `docs/screenshots/feature-XX/` (ex: `docs/screenshots/feature-01/`, `docs/screenshots/feature-02/`, etc.). **Nunca** salve ou deixe screenshots soltos na raiz do projeto.
-   - **Nomenclatura Padronizada:** Adote nomes descritivos em kebab-case (ex: `login-screen.png`, `wizard-step-1.png`, `doula-dashboard.png`).
-   - Inclua no relatório final da feature um resumo detalhado dos passos testados no Playwright e os links das evidências capturadas.
+5. **Testes E2E com Playwright & Ciclo de Vida dos Prints:**
+   - Ao concluir uma feature em sua branch correspondente, execute a validação no navegador via **Playwright** (`http://localhost:8081`) para assegurar funcionamento de ponta a ponta (interações, formulários, RBAC, layout).
+   - **Prints e testes são temporários:** Não é necessário separar pastas permanentes por feature. Os prints servem apenas para validação imediata da feature na branch.
+   - **Limpeza pós-merge:** Após a aprovação e o **merge da branch da feature para a `main`**, todos os prints e artefatos de teste gerados pelo Playwright devem ser apagados, mantendo a `main` sempre limpa e sem acúmulo de imagens.

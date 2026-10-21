@@ -343,7 +343,7 @@ minha-gestacao/
 
 ## 7. FEATURE-BY-FEATURE IMPLEMENTATION ROADMAP (SDD)
 
-> **Instrução para o Agente IA (Antigravity):** Implemente uma feature por vez na ordem abaixo. Ao concluir cada feature, valide os Critérios de Aceite tanto via testes unitários (`npm test`) quanto via testes de ponta a ponta no navegador com **Playwright** (salvando screenshots de evidência em `docs/screenshots/feature-XX/`) antes de avançar para a próxima.
+> **Instrução para o Agente IA (Antigravity):** Implemente uma feature por vez na respectiva branch. Ao concluir cada feature, valide os Critérios de Aceite via testes unitários (`npm test`) e testes E2E no navegador com **Playwright** para inspeção. Os prints e artefatos de teste são temporários da branch e devem ser apagados após o merge da feature para a `main`.
 
 ### FEATURE 00: Foundation, Docker, Database & Obstetrics Engine
 - **Escopo:**
