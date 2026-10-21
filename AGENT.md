@@ -129,7 +129,13 @@ minha-gestacao/
   - Disparo de convite acolhedor via WhatsApp com deep link formatado e senha temporária (`must_change_password: true`).
   - 64 testes unitários automatizados cobrindo esquemas Zod, cálculo obstétrico dinâmico, biometria e provisionamento.
   - 11 capturas de validação E2E via Playwright cobrindo todos os passos, erros de validação, alternância DUM/Ultrassom, modal do WhatsApp e responsividade.
-- [ ] **FEATURE 03: Dashboards (Visão da Doula & Home da Gestante)**
+- [x] **FEATURE 03: Dashboards (Visão da Doula & Home da Gestante)**
+  - Painel da Doula (`/(doula)/dashboard.tsx`) com seletor de disponibilidade (`Disponível`, `Em Parto`, `Descanso`), seção de Atenção Prioritária (Red Flags Obstétricas com motivos clínicos e botão "Ciente"), estatísticas por trimestre e grid responsivo de cards (1 col mobile, 2 cols tablet, 3 cols desktop) com cálculo obstétrico real via `getGestationalAge(effective_dum)`.
+  - Home da Gestante (`/(pregnant)/home.tsx`) com saudação personalizada com nome da mãe e apelido do bebê, card da Doula com status sincronizado em tempo real, Card Hero consumindo `gestational_weeks_metadata` na semana atual (ilustração da fruta/semente, progresso da gestação %, dias restantes até a DPP, biometria estimada cm/g, resumo de desenvolvimento fetal, alterações no corpo materno e dica carinhosa da doula).
+  - Ações rápidas destacadas para preenchimento/edição do Diário de Hoje e Bate-Papo, além de checklist interativo de tarefas diárias e aviso de videochamadas agendadas.
+  - Catálogo completo das semanas 1 a 42 em `src/lib/gestational-metadata.ts` espelhado do banco.
+  - 74 testes unitários automatizados cobrindo o serviço de dashboards, motor de metadados, alternância de status da doula, dispensa de red flags e checklist interativo.
+  - 9 capturas de validação E2E via Playwright no navegador (`http://localhost:8081`) cobrindo o Painel da Doula (Desktop, Tablet, Mobile, filtros e dispensa de alertas) e a Home da Gestante (Mobile, Tablet, expansão do desenvolvimento e marcação de tarefas).
 - [ ] **FEATURE 04: Diário da Gestante & Motor de Alertas**
 - [ ] **FEATURE 05: Timeline (Barra de Nível 40 Semanas) & Gráficos de Peso**
 - [ ] **FEATURE 06: Calendário, Prescrições de Exercícios & Videochamada**
